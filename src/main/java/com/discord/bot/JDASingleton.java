@@ -1,7 +1,9 @@
 package com.discord.bot;
 
+import com.discord.bot.listener.ServerListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 
 import javax.security.auth.login.LoginException;
 
@@ -16,9 +18,9 @@ public class JDASingleton {
 
         if (INSTANCE == null) {
             try {
-                JDABuilder jdaBuilder = JDABuilder.createDefault("NzYyNzUwODYxODg5NjM0Mzc1.X3ttGA.GCZatpGvs4xBxqZ13f9qAXGglD8");
-                INSTANCE = jdaBuilder.build();
-            } catch (LoginException exception) {
+                JDABuilder jdaBuilder = JDABuilder.createDefault("NzYyNzUwODYxODg5NjM0Mzc1.X3ttGA.xVXAXKFmeRXV8xkXbvBuddxAIu4");
+                INSTANCE = jdaBuilder.build().awaitReady();
+            } catch (LoginException | InterruptedException exception) {
                 exception.printStackTrace();
             }
         }
@@ -26,6 +28,8 @@ public class JDASingleton {
     }
 
     public static void main(String[] argh){
-        JDASingleton.getInstance();
+        JDA jda = JDASingleton.getInstance();
+        jda.getPresence().setActivity(Activity.watching("How to basic"));
+        jda.addEventListener(new ServerListener());
     }
 }
