@@ -18,7 +18,7 @@ public class JDASingleton {
 
         if (INSTANCE == null) {
             try {
-                JDABuilder jdaBuilder = JDABuilder.createDefault("NzYyNzUwODYxODg5NjM0Mzc1.X3ttGA.xVXAXKFmeRXV8xkXbvBuddxAIu4");
+                JDABuilder jdaBuilder = JDABuilder.createDefault("");
                 INSTANCE = jdaBuilder.build().awaitReady();
             } catch (LoginException | InterruptedException exception) {
                 exception.printStackTrace();
@@ -31,5 +31,6 @@ public class JDASingleton {
         JDA jda = JDASingleton.getInstance();
         jda.getPresence().setActivity(Activity.watching("How to basic"));
         jda.addEventListener(new ServerListener());
+
     }
 }

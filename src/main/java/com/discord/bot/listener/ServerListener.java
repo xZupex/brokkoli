@@ -19,9 +19,14 @@ public class ServerListener extends ListenerAdapter {
         for (String line : argh) {
             //TODO: filter by channel name
             if(line.contains("!newTicket")) {
-                event.getChannel().sendMessage(getEmbedMessage().build()).queue();
+                sendMessageInChannel(event);
+                sendPrivateMessage(event);
             }
         }
+    }
+
+    private void sendMessageInChannel(GuildMessageReceivedEvent event) {
+        event.getChannel().sendMessage(getEmbedMessage().build()).queue();
     }
 
     @NotNull
@@ -31,6 +36,12 @@ public class ServerListener extends ListenerAdapter {
         embedBuilder.setColor(Color.YELLOW);
         embedBuilder.setDescription("Ey dau Nassgekämmten. Wat wills dau dann hei?");
         return embedBuilder;
+    }
+
+    private void sendPrivateMessage(GuildMessageReceivedEvent event) {
+        event.getAuthor().openPrivateChannel().queue((channel -> {
+            channel.sendMessage("Ey dau Nassgekämmten. Wat wills dau dann hei?").queue();
+        }));
     }
 
 
